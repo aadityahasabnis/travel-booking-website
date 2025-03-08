@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, '/public')))
 
 // Logger
 // Middleware
-app.use((req, res, next)=> {
+app.use((req, res, next) => {
     req.time = new Date(Date.now());
     console.log(req.method);
     console.log(req.hostname, req.time);
@@ -61,12 +61,16 @@ app.get("/listings/new", (req, res) => {
 })
 
 // * Post new listing
-app.post('/listings', async (req, res) => {
-    let { title, description, image: imageUrl, price, country, location } = req.body;
-    await Listing.insertOne({
-        title: title, description: description, image: { url: imageUrl }, price, country, location
-    })
-    res.redirect('/listings');
+app.post('/listings', async (req, res, next) => {
+    try {
+        let { title, description, image: imageUrl, price, country, location } = req.body;
+        await Listing.insertOne({
+            title: title, description: description, image: { url: imageUrl }, price, country, location
+        })
+        res.redirect('/listings');
+    } catch (err) {
+        next(err);
+    }
 })
 
 //  * Each Listing
@@ -105,7 +109,7 @@ app.delete("/listings/:id/delete", async (req, res) => {
 })
 
 // * Just for checking
-// app.get('/testlisting', async (req, res) => {
+// app.get('/testListing', async (req, res) => {
 //     let sampleListing = new Listing({
 //         title: "Cozy Beachfront Bungalow",
 //         description: "A beautiful beachfront bungalow with stunning ocean views. Perfect for a relaxing getaway.",
@@ -119,6 +123,11 @@ app.delete("/listings/:id/delete", async (req, res) => {
 //     console.log("Sample saved");
 //     res.send("Successful")
 // })
+
+
+app.use((err, req, res, next) => {
+    res.send("Something went wrong.")
+})
 
 app.listen(3000, () => {
     console.log("Server is listening to port 3000");

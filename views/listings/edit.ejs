@@ -1,40 +1,79 @@
 <% layout('layouts/boilerplate') -%>
 
-<body>
-    <h3>Edit Listing</h3><br>
-    <form action="/listings/<%= listing._id %>?_method=PUT" method="post">
+    <body>
+        <h3>Edit Listing</h3><br>
+        <form action="/listings/<%= listing._id %>?_method=PUT" method="post" class="needs-validation" novalidate>
 
-        <div class="row ">
-            <div class="col-8 offset-2">
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" name="title" placeholder="Enter Title:" value="<%= listing.title %>"class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea type="text" name="description" rows="5"
-            cols="30" placeholder="Add description" class="form-control"><%= listing.description %></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">Image Link</label>
-                    <input type="text" value="<%= listing.image.url %>" name="image" placeholder="Enter image URL/Link" class="form-control">
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" name="price" placeholder="Enter Price" value="<%= listing.price %>" class="form-control">
+            <div class="row ">
+                <div class="col-8 offset-2">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input required type="text" name="title" placeholder="Enter Title:" value="<%= listing.title %>"
+                            class="form-control">
+                        <div class="valid-feedback">
+                            Title looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Title Required!
+                        </div>
                     </div>
-                    <div class="mb-3 col-md-8">
-                        <label for="country" class="form-label">Country</label>
-                        <input type="text" name="country" value="<%= listing.country %>" placeholder="Enter Country" class="form-control">
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea required type="text" name="description" rows="5" cols="30"
+                            placeholder="Add description" class="form-control"><%= listing.description %></textarea>
+                        <div class="valid-feedback">
+                            Description looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Description Required!
+                        </div>
                     </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image Link</label>
+                        <input required type="text" value="<%= listing.image.url %>" name="image"
+                            placeholder="Enter image URL/Link" class="form-control">
+
+                        <div class="invalid-feedback">
+                            Image Required!
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="price" class="form-label">Price</label>
+                            <input required type="number" name="price" placeholder="Enter Price"
+                                value="<%= listing.price %>" class="form-control">
+                            <div class="valid-feedback">
+                                Price looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Price Required!
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-8">
+                            <label for="country" class="form-label">Country</label>
+                            <input required type="text" name="country" value="<%= listing.country %>"
+                                placeholder="Enter Country" class="form-control">
+                            <div class="valid-feedback">
+                                Country should be valid!
+                            </div>
+                            <div class="invalid-feedback">
+                                Country Required!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input required type="text" name="location" value="<%= listing.location %>"
+                            placeholder="Enter Location" class="form-control">
+                        <div class="valid-feedback">
+                            Location should be valid!
+                        </div>
+                        <div class="invalid-feedback">
+                            Location Required!
+                        </div>
+                    </div><br>
+                    <button type="submit" class="btn btn-dark edit-btn">Edit</button>
                 </div>
-                <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <input type="text" name="location" value="<%= listing.location %>" placeholder="Enter Location" class="form-control">
-                </div><br>
-                <button type="submit" class="btn btn-dark edit-btn">Edit</button>
             </div>
-        </div>
-    </form>
-</body>
+        </form>
+    </body>
